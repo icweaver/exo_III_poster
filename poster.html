@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content=''>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+.panel-default {
+    background: #262931; color:#9da7bb; border-color:#262931;
+}
+.panel-default > .panel-custom-title {
+    background: #262931; color: #ffffff;
+}
+h3 {
+margin-top:0px;
+}
+</style>
+<title>Exo III Poster - Ian C. Weaver</title>
+</head>
+<body style="background-color:#303845;">
+<div class='container' style='margin-top:20px', align="left">
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='panel panel-default'>
+        <div class='panel-body panel-custom-title'>
+          <h1 class='text-center'>ACCESS: a general update and current progress on HAT-P-23b</h1>
+          <p class='text-center', style="color:#9da7bb">Ian C. Weaver and the ACCESS Team</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <p><strong><span style='color:#ffffff'>Abstract<span></strong><br>
+          ACCESS is a multi-institutional collaboration initiated in 2014 and
+          aimed at exploring the visible (0.35 – 1.0 μm) properties of
+          exoplanet atmospheres using the technique of transmission
+          spectroscopy. Working in this range allows for degeneracies in
+          retrieved transmission spectra to be broken when combined with data
+          in the IR. To date, ACCESS has gathered over 55 transits for 17
+          unique targets spanning from super-Earths to hot-Jupiters using the
+          IMACS multi-object spectrograph on the 6.5-m Magellan Baade Telescope
+          at Las Campanas Observatory. ACCESS will provide a uniform, large
+          sample of visible transmission spectra of these exoplanets, which
+          will become key in the era of JWST and comparative exoplanetology.
+          Here, share the current progress on the next entry to this survey,
+          HAT-P-23b, which uses new detrending tools that may significantly
+          increase the performance of current techniques in the field.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-4'>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3><span style='color:#ffffff'>Introduction</span></h3>
+          <p>
+          Our survey produces high quality transmission spectra of exoplanet
+          atmopsheres by combining observations of multiple transit events
+          observed on Magellan/IMACS. We use the wide field of view of the
+          spectrograph to hammer down systematics via multi-object slit
+          spectroscopy of multiple comparison stars that we are able to capture
+          within the same field. To perform the detrending, we simultaneously
+          use i) a transit model, ii) various external systematic parameters
+          (e.g. airmass, rotator angle, shift in wavelength of the trace) which
+          are passed as input to a Gaussian Process (GP) kernel, and iii)
+          successive components of the comparison star flux via principal
+          component analysis (PCA). We fit these items via dynamic nested
+          sampling<sup>1</sup> and finally Bayesian Model Average (BMA) the
+          results together to produce the final detrended light curves to be
+          used for atmospheric retrieval.<br><br>
+
+          These techniques have proven successful in the past<sup>2, 3</sup>,
+          but the process can take on the order of days or weeks, depending on
+          the number of data points used (i.e. number of points in the
+          timeseries, number comparison stars, number of wavelength bins).  We
+          also recognize that this bottleneck will only be exacerbated in the
+          era of "big data" surveys (e.g. TESS, JWST, Vera C. Rubin
+          Observatory). For this reason, we investigate using more modern
+          computational tools implemented in the probabilistic modeling
+          toolkit, <em>exoplanet</em><sup>4</sup> to keep pace with the ever
+          evolving field of exoplanet atmosphere research, and present our
+          preliminary results here.
+          </p>
+        </div>
+      </div>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3><span style='color:#ffffff'>Model<span></h3>
+          <p>
+          <em>exoplanet</em> fits exoplanet data by extending the scalable
+          high-performance model building language and inference engine,
+          PyMC3<sup>5</sup>, to support many of the custom functions and
+          distributions that we use. These include a fast and robust solver for
+          Kepeler's equations, scalable GPs using celerite, fast and accurate
+          limb darkened light curves using starry<sup>6, 7</sup>, and common
+          reparameterizations for limb darkening parameters<sup>8</sup>, planet
+          radius and impact parameter.  These functions also have methods for
+          efficiently calculating their gradients so that they can be used with
+          gradient-based inference methods like Hamiltonian Monte Carlo, No
+          U-Turns Sampling, and variational inference, which all already come
+          pre-baked in PyMC3, along with Theano tensors<sup>9</sup> for
+          additional speed-up.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class='col-sm-4'>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3><span style='color:#ffffff'>Application</span></h3>
+          <p>
+          We implemented these tools with our current data and were able to
+          produce the following white light curve results.
+          </p>
+          <p>
+            <img src='https://gist.githubusercontent.com/icweaver/40064c090d5998c3459ca25c0b6f1f4f/raw/33a083307a895c6e4754865f0fe3f22775b13173/w43_ut180603_xo_wlc.svg' width='100%' height='auto'>
+          </p>
+          <p class='small'><em>
+            Figure 1: (Left) raw data and systematics model for WASP-43b
+            dataset. (Right) Corresponding detrended LC and model.
+          </em></p>
+          <p>
+          <p>
+            <img src='https://gist.githubusercontent.com/icweaver/8f4998d00a0ffd4fd81be2804a95f9c1/raw/bb045b128c473e18640643a9e9451cb3a5e88a9a/w43_ut180603_xo_wlc_corner.svg' width='100%' height='auto'>
+          </p>
+          <p class='small'><em>
+            Figure 2: Associated corner plot for Figure 1. Reference values
+            from our study are shown in orange.
+          </em></p>
+          <p>
+          Although these are only preliminary results of our implementation, we
+          were pleased to see that we were able to obtain these results in
+          under three minutes on a standard laptop. For comparison, this
+          originally took over 5 hours to run using our standard detrending and
+          sampling scheme. What is especially exciting to see is the
+          potentially substantial reduction in the transit depth uncertainty
+          using this new framework.<br><br>
+
+          We would also like to note that the discrepancies seen above are most
+          likely due to the choice of kernel. The <em>exoplanet</em> run uses a
+          matern-3/2 kernel, while our original study used a
+          squared-exponential, which has since been seen to be less reliable
+          and has had support for it dropped in modern GP packages
+          (<a href='https://github.com/dfm/celerite/issues/147' target='_blank'>#147</a>,
+           <a href='https://github.com/dfm/celerite/issues/148' target='_blank'>#148</a>
+          ).
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class='col-sm-4'>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3><span style='color:#ffffff'>Other datasets</span></h3>
+          <p>
+          Our sample implementation on a recently collected HAT-P-23b dataset
+          also looks promising.
+          <p>
+            <img src='https://gist.githubusercontent.com/icweaver/19b246603144b91e4193c68c3c89a64b/raw/8fa3697e9af56dd3034153f8f069cc6496e09736/hp23_ut180603_xo_wlc.svg' width='100%' height='auto'>
+          </p>
+          <p class='small'><em>
+            Figure 3: Same as Figure 1, but for HAT-P-23b.
+          </em></p>
+          </p>
+        </div>
+      </div>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3><span style='color:#ffffff'>Discussion and Conclusion</span></h3>
+          <p>
+          We present the first preliminary results of the implementation of
+          <em>exoplanet</em> on our ACCESS data. The significantly reduced run
+          time and easily extendible and composable nature of distributions and
+          models in PyMC3 makes the iterative approach to developing detrending
+          schemes much more rapid.<br><br>
+
+          Our next steps will involve extending to binned light curves to
+          produce transmission spectra from raw data on the order of minutes.
+          With these spectra in hand, we will then investigate the effect of
+          different priors and GP kernels on the final transmission spectrum,
+          and how this ultimately impacts the characteristics of its atmosphere
+          inferred from retrieval analysis.
+          </p>
+        </div>
+      </div>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h4><span style='color:#ffffff'>References</span></h4>
+
+          <p class='small'>
+            <sup>1</sup>Buchner, Johannes
+            ASCL, 1606, 005 (2016),
+            <a href='https://ui.adsabs.harvard.edu/abs/2016ascl.soft06005B' target='_blank'>ADS</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>2</sup>Weaver et al.
+            AJ, 159, 13 (2020),
+            <a href='https://ui.adsabs.harvard.edu/abs/2020AJ....159...13W' target='_blank'>ADS</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>3</sup>Espinoza et al.
+            MNRAS, 482, 2065-2087 (2019),
+            <a href='https://ui.adsabs.harvard.edu/abs/2019MNRAS.482.2065E' target='_blank'>ADS</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>4</sup>Daniel Foreman-Mackey and Rodrigo Luger and Ian Czekala and Eric Agol and Adrian Price-Whelan and Tom Barclay,
+            Zenodo, (2020),
+            <a href='https://doi.org/10.5281/zenodo.1998447' target='_blank'>Zendo</a><br>
+
+          <p class='small'>
+            <sup>5</sup>Salvatier, John and Wiecki, Thomas V and Fonnesbeck, Christopher,
+            PeerJ Computer Science, 2, e55 (2016),
+            <a href='https://peerj.com/preprints/1686/' target='_blank'>PeerJ</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>6</sup>Luger, R. and Agol, E. and Foreman-Mackey, D. and Fleming, D. P. and Lustig-Yaeger, J. and Deitrick, R.,
+            AJ, 157, 64 (2019),
+            <a href='http://adsabs.harvard.edu/abs/2019AJ....157...64L' target='_blank'>ADS</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>7</sup>Agol, Eric and Luger, Rodrigo and Foreman-Mackey, Daniel
+            AJ, 3, 123 (2020),
+            <a href='https://ui.adsabs.harvard.edu/abs/2020AJ....159..123A' target='_blank'>ADS</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>8</sup>Kipping, D. M.,
+            MNRAS, 435, 2152-2160 (2013),
+            <a href='http://adsabs.harvard.edu/abs/2013MNRAS.435.2152K' target='_blank'>ADS</a><br>
+          </p>
+
+          <p class='small'>
+            <sup>9</sup>Theano Development Team,
+            arXiv (2016),
+            <a href='https://ui.adsabs.harvard.edu/abs/2016arXiv160502688T' target='_blank'>ADS</a><br>
+          </p>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
