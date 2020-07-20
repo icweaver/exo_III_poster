@@ -14,9 +14,31 @@
 .panel-default > .panel-custom-title {
     background: #262931; color: #ffffff;
 }
-.logo-row {
+.img-row {
+  display: -ms-flexbox; /* IE10 */
   display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
   justify-content: space-between;
+}
+.img-row-elem {
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ text-align:center;
+ border:solid 1px #eee;
+}
+/* Create three equal columns that sits next to each other */
+.img-col {
+  -ms-flex: 33.33%; /* IE10 */
+  flex: 33.33%;
+  max-width: 33.33%;
+  padding: 0 4px;
+  text-align:center;
+}
+.img-col img {
+  margin-top: 8px;
+  vertical-align: middle;
+  max-width: 100%;
 }
 h3 {
 margin-top:0px;
@@ -66,31 +88,54 @@ margin-top:0px;
       <h3><span style='color:#ffffff'>ACCESS Overview and Summary</span></h3>
       <div class='panel panel-default'>
         <div class='panel-body'>
-          <div class="logo-row">
-            <img
-            src="https://user-images.githubusercontent.com/25312320/87948283-81bdbf00-ca72-11ea-8785-bbe910171f5f.png"
-            style="width:33%">
-            <img
-            src="https://user-images.githubusercontent.com/25312320/87948558-de20de80-ca72-11ea-81ff-cb42e6ec7e2c.jpeg"
-            style="width:34%">
-            <img
-            src="https://user-images.githubusercontent.com/25312320/87948783-23dda700-ca73-11ea-8741-10a42b90c17f.jpeg"
-            style="width:33%">
-          </div><br>
-          <p>
-            On the left, we show ACCESS targets represented in planet radius vs.
-            equilibrium temperature (T<sub>eq</sub>) parameter space. Circles
-            indicate planets we have already published (green), planets with
-            complete data sets and with results either submitted or currently
-            in preparation (orange), and planets we are still observing (red).
-            Grey dots show the distribution of known transiting exoplanets with
-            T<sub>eq</sub> and radius measurements. The vertical dashed lines
-            indicate transition temperatures for different molecules expected
-            in exoplanet atmospheres. The vertical grey-shaded area show
-            temperatures in which metal and silicate oxides are expected.
-            On the right, we show the associated transmission spectra produced
-            by our survey for both published and a selection of in prep. work.
-          </p>
+            <p>
+            <img src="https://user-images.githubusercontent.com/25312320/87975733-ffe18c00-ca99-11ea-89af-83cb6ed318f7.png"
+                 width=100% height="auto">
+            </p>
+            <p>
+              Above, we show ACCESS targets represented in planet radius vs.
+              equilibrium temperature (T<sub>eq</sub>) parameter space. Circles
+              indicate planets we have already published (green), planets with
+              complete data sets and with results either submitted or currently
+              in preparation (orange), and planets we are still observing (red).
+              Grey dots show the distribution of known transiting exoplanets with
+              T<sub>eq</sub> and radius measurements. The vertical dashed lines
+              indicate transition temperatures for different molecules expected
+              in exoplanet atmospheres. The vertical grey-shaded area show
+              temperatures in which metal and silicate oxides are expected.
+            </p>
+            <p>
+              Below, we show the associated transmission spectra produced
+              by our survey for both published and a selection of in prep. work.
+            </p>
+          <div class='img-row'>
+                <div class='img-col'>
+                <img src="https://user-images.githubusercontent.com/25312320/87963898-73c66900-ca87-11ea-8d4f-a18ef1e43747.png">
+                <p>WASP-6b (Jordan et al. 2013)</p>
+                </div>
+                <div class='img-col'>
+                <img src="https://user-images.githubusercontent.com/25312320/87963940-80e35800-ca87-11ea-993e-51091860de6a.png">
+                <p>GJ1214b (Rackham et al. 2017)</p>
+                </div>
+                <div class='img-col'>
+                <img src="https://user-images.githubusercontent.com/25312320/87963959-89d42980-ca87-11ea-9c1c-a79208580c0e.png">
+                <p>WASP-19b (Espinoza et al. 2019)</p>
+                </div>
+              </div>
+              <div class='img-row'>
+                <div class='img-col'>
+                <img src="https://user-images.githubusercontent.com/25312320/87963999-95275500-ca87-11ea-9b17-0632094098c0.png">
+                <p>WASP-4b (Bixel et al. 2019)</p>
+                </div>
+                <div class='img-col'>
+                <img src="https://user-images.githubusercontent.com/25312320/87961753-2b597c00-ca84-11ea-9c39-24c9e71efe3c.png">
+                <p>WASP-43b (Weaver et al. 2020)</p>
+                </div>
+                <div class='img-col'>
+                <img src="https://user-images.githubusercontent.com/25312320/87964044-a3757100-ca87-11ea-8c22-9c716ac56986.png">
+                <p>WASP-31b (McGruder et al. in prep.)</p>
+                </div>
+          </div>
         </div>
       </div>
     </div>
@@ -295,7 +340,7 @@ margin-top:0px;
       </div>
     </div>
   </div>
-  <div class="logo-row">
+  <div class="img-row">
       <img src="https://user-images.githubusercontent.com/25312320/87888669-2bae3480-c9fc-11ea-9de6-c14bba865ac1.png"
            style="width:20%">
       <img src="https://user-images.githubusercontent.com/25312320/87888844-14bc1200-c9fd-11ea-885b-50b22a62638b.png"
